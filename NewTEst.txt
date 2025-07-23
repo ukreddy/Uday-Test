@@ -4,6 +4,21 @@ take(skip(split(outputs('Compose_Reformat_back_to_CSV_with_new_delimiter'), outp
 
 split(item(), outputs('Compose_CSV_data_+_Set-up')['NewDelimiter'])?[0]
 
+replace(
+replace(
+replace(
+replace(
+replace(
+if(and(contains(join(item(), ''), '['), contains(join(item(), ''), ']')), 
+replace(replace(replace(
+if(equals(last(join(item(), '')), '"'), take(join(item(), ''), sub(length(join(item(), '')), 1)), join(item(), '')), '",,"', '"###"'), '[""', '["'), '""]', '"]'), 
+if(equals(last(join(item(), '')), '"'), take(join(item(), ''), sub(length(join(item(), '')), 1)), join(item(), ''))), 
+outputs('Compose_CSV_data_+_Set-up')['InDataLineBreakToReplace'], outputs('Compose_CSV_data_+_Set-up')['InDataLineBreakReplacement']), 
+',', outputs('Compose_CSV_data_+_Set-up')['NewDelimiter']), 
+'###', ','),
+concat(outputs('Compose_CSV_data_+_Set-up')['NewDelimiter'], '",', outputs('Compose_CSV_data_+_Set-up')['NewDelimiter']), concat(outputs('Compose_CSV_data_+_Set-up')['NewDelimiter'], outputs('Compose_CSV_data_+_Set-up')['NewDelimiter'])),
+'""', '"')
+
 
 
 New test file.
