@@ -1,1 +1,9 @@
+take(skip(split(outputs('Compose_Reformat_back_to_CSV_with_new_delimiter'), outputs('Compose_CSV_data_+_Set-up')['LineBreak']), outputs('Compose_CSV_data_+_Set-up')['HeaderRowsToSkip']), sub(length(skip(split(outputs('Compose_Reformat_back_to_CSV_with_new_delimiter'), outputs('Compose_CSV_data_+_Set-up')['LineBreak']), outputs('Compose_CSV_data_+_Set-up')['HeaderRowsToSkip'])), outputs('Compose_CSV_data_+_Set-up')['FooterRowsToSkip']))
+
+
+
+split(item(), outputs('Compose_CSV_data_+_Set-up')['NewDelimiter'])?[0]
+
+
+
 New test file.
