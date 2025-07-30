@@ -1,0 +1,1 @@
+replace(replace(replace(replace(variables('Template1'),'#Schedule#',variables('varSchedule')),'#YearMonth#',variables('varYearMonth')),'#FileName#',variables('varFileName')),'#Comments#',variables('varComments'))
