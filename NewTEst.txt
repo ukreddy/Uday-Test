@@ -1,5 +1,0 @@
-split(trim(
-replace(
-concat(outputs('Compose_CSV_data_+_Set-up')['LineBreak'], replace(replace(replace(replace(replace(replace(outputs('Compose_CSV_data_+_Set-up')['CSV_Data'], ', "', ',"'), '","', '#_4#",,"#_4#'), ',","', '###","###'), ',","', '###","'), '",",', '","###'), ',",', if(equals(outputs('Compose_CSV_data_+_Set-up')['AdjustForLeadingOverTrailingCommas'], 'No'), '###",', ',"###'))), 
-concat(outputs('Compose_CSV_data_+_Set-up')['LineBreak'], '"'), concat(outputs('Compose_CSV_data_+_Set-up')['LineBreak'], ',"#_5#'))), 
-outputs('Compose_CSV_data_+_Set-up')['LineBreak'])
