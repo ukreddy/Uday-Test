@@ -1,1 +1,753 @@
-replace(replace(replace(replace(variables('Template1'),'#Schedule#',variables('varSchedule')),'#YearMonth#',variables('varYearMonth')),'#FileName#',variables('varFileName')),'#Comments#',variables('varComments'))
+Screens:
+  tblDataImporteds screen_1:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: =UpdateContext({ctxSubmitReview:false});Clear(colUpdates);
+    Children:
+      - ScreenContainer1_2:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(250, 250, 250, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =15
+            PaddingBottom: =16
+            PaddingLeft: =16
+            PaddingRight: =16
+            PaddingTop: =16
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - TableNameContainer1_2:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =68
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                Children:
+                  - TableNameLabel1_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledColor: =RGBA(186, 186, 186, 1)
+                        Fill: =RGBA(0, 120, 212, 1)
+                        FillPortions: =1
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =68
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =16
+                        Size: =16
+                        Text: ="Account Review App"
+            - BodyContainer1_2:
+                Control: GroupContainer@1.3.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =16
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - SidebarContainer1_2:
+                      Control: GroupContainer@1.3.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =true//If(And('tblDataImporteds screen_1'.Size = ScreenSize.Small, Or(newMode, editMode, itemSelected)), 0, 3)
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =10
+                        PaddingLeft: =16
+                        PaddingRight: =16
+                        PaddingTop: =10
+                        Visible: =true//If(And('tblDataImporteds screen_1'.Size = ScreenSize.Small, Or(newMode, editMode, itemSelected)), false, true)
+                      Children:
+                        - Container6:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =50
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              PaddingLeft: =5
+                              PaddingTop: =5
+                            Children:
+                              - Button8:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =If(varSelectedButton="AllRequests",RGBA(0, 120, 212, 1),Color.Gray)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =Set(varSelectedButton,"AllRequests");ClearCollect(colRequests,Filter(tblDataImporteds,IsBlank(RequestStatus)));Clear(colUpdates);
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="All Requests"
+                              - Button9:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =If(varSelectedButton="WriteoffRequests",RGBA(0, 120, 212, 1),Color.Gray)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =Set(varSelectedButton,"WriteoffRequests");ClearCollect(colRequests,Filter(tblDataImporteds,RequestStatus='RequestStatus (tblDataImporteds)'.'Write-off'));Clear(colUpdates);
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Write-off Requests"
+                                    Width: =200
+                              - Button10:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =If(varSelectedButton="BucketRequests",RGBA(0, 120, 212, 1),Color.Gray)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =Set(varSelectedButton,"WriteoffRequests");ClearCollect(colRequests,Filter(tblDataImporteds,RequestStatus='RequestStatus (tblDataImporteds)'.Bucket));Clear(colUpdates);
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Bucket Requests"
+                              - Button11:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =If(varSelectedButton="ReviewRequests",RGBA(0, 120, 212, 1),Color.Gray)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =Set(varSelectedButton,"WriteoffRequests");ClearCollect(colRequests,Filter(tblDataImporteds,RequestStatus='RequestStatus (tblDataImporteds)'.Review));Clear(colUpdates);
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Review Requests"
+                                    Width: =180
+                        - SearchContainer1_2:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =RGBA(245, 245, 245, 1)
+                              FillPortions: =0
+                              Height: =44
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - SearchInput1_2:
+                                  Control: Classic/TextInput@2.3.2
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =1
+                                    Color: =RGBA(70, 68, 64, 1)
+                                    Default: =""
+                                    DisabledBorderColor: =ColorFade(Self.BorderColor, 40%)
+                                    DisabledColor: =ColorFade(Self.Color, 40%)
+                                    DisabledFill: =Self.Fill
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FillPortions: =1
+                                    FocusedBorderThickness: =3
+                                    Font: =Font.'Open Sans'
+                                    Height: =44
+                                    HintText: ="Search"
+                                    HoverBorderColor: =Self.Color
+                                    HoverColor: =Self.Color
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    LayoutMinWidth: =0
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Size: =14
+                              - SearchIcon1_2:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(0, 120, 212, 1)
+                                    DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                                    DisabledColor: =RGBA(119, 119, 119, 1)
+                                    Height: =44
+                                    Icon: =Icon.Search
+                                    PaddingBottom: =10
+                                    PaddingLeft: =10
+                                    PaddingRight: =10
+                                    PaddingTop: =10
+                                    Width: =44
+                        - Container1:
+                            Control: GroupContainer@1.3.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =50
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =8
+                              LayoutMinHeight: =10
+                              PaddingBottom: =5
+                              PaddingLeft: =5
+                              PaddingRight: =5
+                              PaddingTop: =5
+                              Visible: =If(CountRows(colUpdates)>0,true,false)
+                            Children:
+                              - Button2:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =RGBA(0, 120, 212, 1)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =UpdateContext({ctxSubmitReview:true,ctxSentForWriteOff:true,ctxSentForBucket:false,ctxSentForReview:false})
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Send for Writeoff"
+                                    Width: =240
+                              - Button5:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =RGBA(0, 120, 212, 1)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =UpdateContext({sentfor:true,ctxSentForWriteOff:false,ctxSentForBucket:true,ctxSentForReview:false})
+                                    PaddingLeft: =10
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Send for Bucket"
+                                    Width: =240
+                              - Button6:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =RGBA(255, 255, 255, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: =RGBA(0, 120, 212, 1)
+                                    Font: =Font.'Segoe UI'
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(16, 110, 190, 1)
+                                    OnSelect: =UpdateContext({sentfor:true,ctxSentForWriteOff:false,ctxSentForBucket:false,ctxSentForReview:true})
+                                    PaddingLeft: =10
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =RGBA(16, 110, 190, 1)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: ="Send for review"
+                                    Width: =200
+                        - RecordsListSeparator1_2:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledFill: =RGBA(161, 159, 157, 1)
+                              Fill: =RGBA(225, 223, 221, 1)
+                              FocusedBorderThickness: =4
+                              Height: =1
+                              HoverFill: =RGBA(0, 120, 212, 1)
+                              LayoutMinWidth: =200
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                        - Container12:
+                            Control: GroupContainer@1.3.0
+                            Variant: ManualLayout
+                            Properties:
+                              Fill: =RGBA(236, 236, 235, 1)
+                              FillPortions: =0
+                              Height: =50
+                              LayoutMinHeight: =50
+                              LayoutMinWidth: =400
+                              Width: =Parent.Width
+                            Children:
+                              - Label1:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Visible: =false
+                                    Width: =40
+                                    X: =6
+                                    Y: =5
+                              - Label5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =Color.White
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="Account Name"
+                                    Width: =Parent.Width/5
+                                    X: =Title1_2.X
+                                    Y: =5
+                              - Label4:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="Account "
+                                    Width: =Parent.Width/5
+                                    X: =Label5.X+Label5.Width
+                                    Y: =5
+                              - Label6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="AgeBuckets"
+                                    Width: =Body1_2.Width
+                                    X: =Label4.X+Label4.Width
+                                    Y: =5
+                              - Label7:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="GLCOMPANY"
+                                    Width: =Parent.Width/4
+                                    X: =Label6.X+Label6.Width
+                                    Y: =5
+                              - Label8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Text: ="ITEMUUID"
+                                    Width: =Parent.Width/7
+                                    X: =Label7.X+Label7.Width
+                                    Y: =5
+                        - RecordsGallery1_2:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_ThreeTextVariant_ver5.0
+                            Properties:
+                              BorderColor: =RGBA(245, 245, 245, 1)
+                              Default: =CurrentItem
+                              Fill: =RGBA(250, 250, 250, 1)
+                              Items: =Search(colRequests, SearchInput1_2.Text, ITEMUUID, ACCT_NAME,ACCOUNT,AgeBuckets)
+                              LayoutMinHeight: =80
+                              LayoutMinWidth: =0
+                              OnSelect: |-
+                                =UpdateContext({ itemSelected: true, CurrentItem: ThisItem })
+                              TemplateFill: =If(ThisItem.IsSelected, RGBA(230, 230, 230, 1), RGBA(0, 0, 0, 0))
+                              TemplateSize: =50
+                            Children:
+                              - Checkbox1:
+                                  Control: Classic/CheckBox@2.1.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    CheckboxBorderColor: =RGBA(96, 94, 92, 1)
+                                    CheckmarkFill: =RGBA(0, 120, 212, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Segoe UI'
+                                    Height: =35
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(50, 49, 48, 1)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    OnCheck: =Collect(colUpdates,ThisItem)
+                                    OnSelect: =Select(Parent)
+                                    OnUncheck: =Remove(colUpdates,ThisItem)
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedColor: =RGBA(50, 49, 48, 1)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Text: =
+                                    Visible: =If(varSelectedButton="AllRequests",true,false)
+                                    Width: =40
+                                    X: =Rectangle1_2.X+Rectangle1_2.Width+2
+                              - Rectangle1_2:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(0, 120, 212, 1)
+                                    Height: =Parent.TemplateHeight - Separator1_2.Height
+                                    OnSelect: =Select(Parent)
+                                    Visible: =ThisItem.IsSelected
+                                    Width: =4
+                              - Title1_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(50, 49, 48, 1)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =14
+                                    Text: =ThisItem.ACCT_NAME
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.Width/5
+                                    X: =Checkbox1.X+Checkbox1.Width
+                                    Y: =5//(Parent.TemplateHeight - (Self.Size*1.8 + Subtitle1_2.Size*1.8 + 2 + Body1_2.Size*1.8)) / 2
+                              - NextArrow1_2:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    AccessibleLabel: =Self.Tooltip
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Color: =RGBA(166, 166, 166, 1)
+                                    DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                    DisabledColor: =RGBA(225, 223, 221, 1)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =35
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(16, 110, 190, 1)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Icon: =Icon.ChevronRight
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =16
+                                    PaddingLeft: =16
+                                    PaddingRight: =16
+                                    PaddingTop: =16
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedColor: =RGBA(16, 110, 190, 1)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Tooltip: ="View item details"
+                                    Visible: =false
+                                    Width: =35
+                                    X: =
+                              - Subtitle1_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(96, 94, 92, 1)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.ACCOUNT
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Title1_2.Width
+                                    X: =Title1_2.X+Title1_2.Width
+                                    Y: =Title1_2.Y
+                              - Body1_2:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(96, 94, 92, 1)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.AgeBuckets
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Title1_2.Width
+                                    X: =Subtitle1_2.X+Subtitle1_2.Width
+                                    Y: =Subtitle1_2.Y
+                              - Separator1_2:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(255, 255, 255, 1)
+                                    Height: =8
+                                    OnSelect: =Select(Parent)
+                                    Width: =Parent.TemplateWidth
+                                    Y: =Parent.TemplateHeight - Self.Height
+                              - Body1_3:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(96, 94, 92, 1)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.GLCOMPANY
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Title1_2.Width
+                                    X: =Body1_2.X+Body1_2.Width
+                                    Y: =Subtitle1_2.Y
+                              - Body1_4:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 1)
+                                    Color: =RGBA(96, 94, 92, 1)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                                    Height: =Self.Size * 1.8
+                                    OnSelect: =Select(Parent)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =12
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: =ThisItem.ITEMUUID
+                                    VerticalAlign: =VerticalAlign.Top
+                                    Width: =Parent.Width/7
+                                    X: =Body1_3.X+Body1_3.Width
+                                    Y: =Subtitle1_2.Y
+      - Rectangle2_2:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(161, 159, 157, 1)
+            Fill: =RGBA(161, 159, 157, 0.5)
+            FocusedBorderThickness: =4
+            Height: =App.Height
+            HoverFill: =RGBA(161, 159, 157, 0.5)
+            PressedFill: =RGBA(161, 159, 157, 0.5)
+            Visible: =ctxSubmitReview
+            Width: =App.Width
+      - Container4_2:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =150
+            Visible: =ctxSubmitReview
+            Width: =600
+            X: =App.Width/2-Self.Width/2
+            Y: =App.Height/2-Self.Height/2
+          Children:
+            - Rectangle3_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DisabledFill: =RGBA(161, 159, 157, 1)
+                  Fill: =RGBA(0, 120, 212, 1)
+                  FocusedBorderThickness: =4
+                  Height: =42
+                  HoverFill: =RGBA(0, 120, 212, 1)
+                  PressedFill: =RGBA(0, 120, 212, 1)
+                  Width: =600
+            - Label2_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  FocusedBorderThickness: =4
+                  Font: =Font.'Segoe UI'
+                  Text: ="Confirmaiton"
+                  Y: =2
+            - Label3_2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  Color: =RGBA(50, 49, 48, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  FocusedBorderThickness: =4
+                  Font: =Font.'Segoe UI'
+                  Text: ="Do you want to submit the request?"
+                  Width: =551
+                  X: =28
+                  Y: =42
+            - Button7_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  DisabledFill: =RGBA(242, 242, 241, 0)
+                  Fill: =RGBA(0, 0, 0, 1)
+                  Font: =Font.'Segoe UI'
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =RGBA(0, 0, 0, 0.8)
+                  OnSelect: =UpdateContext({ctxSubmitReview:false});
+                  PressedBorderColor: =RGBA(0, 69, 120, 1)
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =RGBA(0, 0, 0, 1)
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: ="Close"
+                  Width: =120
+                  X: =btnSubmit_2.X-Self.Width-15
+                  Y: =btnSubmit_2.Y
+            - btnSubmit_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  DisabledFill: =RGBA(242, 242, 241, 0)
+                  Fill: =RGBA(0, 120, 212, 1)
+                  Font: =Font.'Segoe UI'
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =RGBA(16, 110, 190, 1)
+                  OnSelect: =ForAll(colUpdates,Patch(tblDataImporteds,ThisRecord,{RequestStatus:If(ctxSentForBucket,'RequestStatus (tblDataImporteds)'.Bucket,If(ctxSentForWriteOff,'RequestStatus (tblDataImporteds)'.'Write-off',If(ctxSentForBucket,'RequestStatus (tblDataImporteds)'.Bucket)))}));Clear(colUpdates);UpdateContext({ctxSubmitReview:false})
+                  PressedBorderColor: =RGBA(0, 69, 120, 1)
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =RGBA(16, 110, 190, 1)
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: ="Submit"
+                  Width: =120
+                  X: =(Label3_2.X+Label3_2.Width)/2//-Self.Width
+                  Y: =Label3_2.Y+Label3_2.Height+15
