@@ -1,175 +1,63 @@
-- Container4_3:
-    Control: GroupContainer@1.3.0
-    Variant: ManualLayout
+ComponentDefinitions:
+  Left Menu with Images:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      Items:
+        PropertyKind: Input
+        DisplayName: Items
+        Description: A custom property
+        DataType: Table
+        Default: |-
+          =Table({Component: "Home",Navigate: 'Home Screen', ImageSelected:'Group 1000002425', Image: 'Group 1000002423' })
     Properties:
-      Fill: =RGBA(255, 255, 255, 1)
-      Height: =350
-      Visible: =ctxSubmitForReview
-      Width: =600
-      X: =App.Width/2-Self.Width/2
-      Y: =App.Height/2-Self.Height/2
+      Fill: =RGBA(247, 212, 208, 1)
+      Height: =App.Height - 164
+      Width: =200
     Children:
-      - btnSubmit_3:
-          Control: Classic/Button@2.2.0
+      - Gallery3:
+          Control: Gallery@2.15.0
+          Variant: Vertical
           Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            Color: =RGBA(255, 255, 255, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            DisabledFill: =RGBA(242, 242, 241, 0)
-            Fill: =RGBA(0, 120, 212, 1)
-            Font: =Font.'Segoe UI'
-            HoverBorderColor: =RGBA(0, 0, 0, 0)
-            HoverColor: =RGBA(255, 255, 255, 1)
-            HoverFill: =RGBA(16, 110, 190, 1)
-            OnSelect: =Patch(tblDataImporteds,RecordsGallery1_2.Selected,{Comments:txtComments_2.Text,ReviewStatus:ReviewStatus.Submitted,AssignedTo:LookUp(Users,'User Name'=ComboBox1_1.Selected.'User Name'),TriggerFlow:true});UpdateContext({ctxSubmitForReview:false});
-            PressedBorderColor: =RGBA(0, 69, 120, 1)
-            PressedColor: =RGBA(255, 255, 255, 1)
-            PressedFill: =RGBA(16, 110, 190, 1)
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Text: ="Submit"
-            Width: =120
-            X: =txtComments_2.X+txtComments_2.Width-Self.Width
-            Y: =ComboBox1_1.Y+ComboBox1_1.Height+10
-      - Button7_3:
-          Control: Classic/Button@2.2.0
-          Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            Color: =RGBA(255, 255, 255, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            DisabledFill: =RGBA(242, 242, 241, 0)
-            Fill: =RGBA(0, 0, 0, 1)
-            Font: =Font.'Segoe UI'
-            HoverBorderColor: =RGBA(0, 0, 0, 0)
-            HoverColor: =RGBA(255, 255, 255, 1)
-            HoverFill: =RGBA(0, 0, 0, 0.8)
-            OnSelect: =UpdateContext({ctxSubmitReview:false});
-            PressedBorderColor: =RGBA(0, 69, 120, 1)
-            PressedColor: =RGBA(255, 255, 255, 1)
-            PressedFill: =RGBA(0, 0, 0, 1)
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Text: ="Close"
-            Width: =120
-            X: =btnSubmit_3.X-Self.Width-15
-            Y: =btnSubmit_3.Y
-      - Rectangle3_3:
-          Control: Rectangle@2.3.0
-          Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            BorderThickness: =2
-            DisabledFill: =RGBA(161, 159, 157, 1)
-            Fill: =RGBA(0, 120, 212, 1)
-            FocusedBorderThickness: =4
-            Height: =42
-            HoverFill: =RGBA(0, 120, 212, 1)
-            PressedFill: =RGBA(0, 120, 212, 1)
-            Width: =600
-      - Label2_3:
-          Control: Label@2.5.1
-          Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            BorderThickness: =2
-            Color: =RGBA(255, 255, 255, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            FocusedBorderThickness: =4
-            Font: =Font.'Segoe UI'
-            Text: ="Comments"
-            Y: =2
-      - Label3_3:
-          Control: Label@2.5.1
-          Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            BorderThickness: =2
-            Color: =RGBA(50, 49, 48, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            FocusedBorderThickness: =4
-            Font: =Font.'Segoe UI'
-            Text: ="Please provide your comments"
-            Width: =551
-            X: =28
-            Y: =42
-      - txtComments_2:
-          Control: Classic/TextInput@2.3.2
-          Properties:
-            BorderColor: =RGBA(179, 179, 179, 1)
-            Color: =RGBA(50, 49, 48, 1)
-            Default: =
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            DisabledFill: =RGBA(242, 242, 241, 0)
-            Font: =Font.'Segoe UI'
-            Height: =113
-            HoverBorderColor: =RGBA(16, 110, 190, 1)
-            HoverColor: =RGBA(50, 49, 48, 1)
-            HoverFill: =RGBA(255, 255, 255, 1)
-            Mode: =TextMode.MultiLine
-            PressedBorderColor: =RGBA(0, 120, 212, 1)
-            PressedColor: =RGBA(50, 49, 48, 1)
-            PressedFill: =RGBA(255, 255, 255, 1)
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Width: =Container4_3.Width-(Self.X*2)
-            X: =Label3_3.X
-            Y: =82
-      - ComboBox1_1:
-          Control: Classic/ComboBox@2.4.0
-          Properties:
-            BorderColor: =RGBA(245, 245, 245, 1)
-            ChevronBackground: =RGBA(245, 245, 245, 1)
-            ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
-            ChevronDisabledFill: =RGBA(161, 159, 157, 1)
-            ChevronFill: =RGBA(50, 49, 48, 1)
-            ChevronHoverBackground: =RGBA(245, 245, 245, 1)
-            ChevronHoverFill: =RGBA(50, 49, 48, 1)
-            Color: =RGBA(50, 49, 48, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            DisabledFill: =RGBA(242, 242, 241, 0)
-            DisplayFields: =["domainname"]
-            Fill: =RGBA(245, 245, 245, 1)
-            Font: =Font.'Segoe UI'
-            HoverBorderColor: =RGBA(16, 110, 190, 1)
-            HoverColor: =RGBA(50, 49, 48, 1)
-            HoverFill: =RGBA(245, 245, 245, 1)
-            Items: =Users
-            PressedBorderColor: =RGBA(16, 110, 190, 1)
-            PressedColor: =RGBA(255, 255, 255, 1)
-            PressedFill: =RGBA(0, 120, 212, 1)
-            SearchFields: =["internalemailaddress"]
-            SelectMultiple: =false
-            SelectionColor: =RGBA(255, 255, 255, 1)
-            SelectionFill: =RGBA(0, 120, 212, 1)
-            Width: =txtComments_2.Width
-            X: =lblReviewer_1.X
-            Y: =lblReviewer_1.Y+lblReviewer_1.Height+5
-      - lblReviewer_1:
-          Control: Label@2.5.1
-          Properties:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            BorderThickness: =2
-            Color: =RGBA(50, 49, 48, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(161, 159, 157, 1)
-            FocusedBorderThickness: =4
-            Font: =Font.'Segoe UI'
-            Text: ="Reviewer"
-            Width: =250
-            X: =txtComments_2.X
-            Y: =txtComments_2.Y+txtComments_2.Height+5
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DelayItemLoading: =false
+            Height: =Parent.Height
+            Items: ='Left Menu with Images'.Items
+            LoadingSpinner: =LoadingSpinner.None
+            TemplateSize: =45
+            Width: =200
+          Children:
+            - Button6_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  Align: =Align.Left
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =If(ThisItem.Navigate = App.ActiveScreen, RGBA(255,255,255,1), RGBA(0,0,0,1))
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =If(ThisItem.Navigate = App.ActiveScreen, RGBA(255,0,0,1),RGBA(255,255,255,1))
+                  Font: =Font.'Open Sans'
+                  Height: =45
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =Self.Color
+                  HoverFill: =Self.Fill
+                  OnSelect: =Navigate(ThisItem.Navigate)
+                  PaddingLeft: =35
+                  PressedBorderColor: =Self.Fill
+                  PressedFill: =Self.Fill
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Size: =12
+                  Text: =ThisItem.Component
+                  Width: =187
+                  X: =2
+            - Image5:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =32
+                  Image: =If(ThisItem.Navigate = App.ActiveScreen,ThisItem.ImageSelected, ThisItem.Image)
+                  OnSelect: =Select(Parent)
+                  Width: =22
+                  X: =5
+                  Y: =6
