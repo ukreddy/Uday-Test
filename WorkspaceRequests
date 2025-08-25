@@ -1,0 +1,31 @@
+Column Name||DataType||Values||Default value
+JIRA_TicketID ||Single Line Text||||
+Requested_Date||DateTime||||
+Workspace_Requester||PeoplePicker||||
+User_LOB_Function||Single Line Text||||
+Workspace_Name||Single Line Text||||
+FTO_Approver||PeoplePicker||||
+Approved_Declined_Date||DateTime||||
+Need_Dedicated_Workspace_Approve||Yes/No||||No
+is_Workspace_For_Business_Purpose_Approve||Yes/No||||No
+Data_Published_NOT_be_Restricted||Yes/No||||No
+AD_Groups_Created_Approve||Yes/No||||No
+Is_PROD_UAT_Test_Environments_Approve||Yes/No||||No
+PowerBI_Developer_In_Your_Team_Approve||Yes/No||||No
+Does_TheWorkspace_name_Follow_thenamingconvention_Approve||Yes/No||||No
+Does_TheUser_Rollupto_Finance_Approve||Yes/No||||No
+||||||
+Need_Dedicated_Workspace||Yes/No||||No
+is_Workspace_For_Business_Purpose||Yes/No||||No
+Data_Published_NOT_be_Restricted||Yes/No||||No
+AD_Groups_Created||Yes/No||||No
+Is_PROD_UAT_Test_Environments||Yes/No||||No
+PowerBI_Developer_In_Your_Team||Yes/No||||No
+Does_TheWorkspace_name_Follow_thenamingconvention||Yes/No||||No
+Does_TheUser_Rollupto_Finance||Yes/No||||No
+||||||
+AllTheChecklistsAreMarked_Approve||Choice||Approved/Delicned||
+AllTheChecklistsAreMarkedYes||Yes/No||||
+AdditionalJusticiation_Approve||Choice||Approved/Delicned||
+AdditionalJustification||Multiline Text||||
+DeclinedReasons||Multiline Text||||
