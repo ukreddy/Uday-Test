@@ -1,0 +1,493 @@
+Screens:
+  DashboardScreen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: =Refresh(WorkspaceRequests);
+    Children:
+      - Rectangle1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(168, 0, 0, 1)
+            Height: =40
+            Width: =1366
+      - Label1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            Text: ="WorkSpace Request"
+            Width: =240
+            X: =App.Width/2-Self.Width/2
+      - cont_RDS_HeaderSection:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =RGBA(51, 51, 51, 1)
+            Height: =If(Self.Visible,40,0)
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,false,true)
+            Width: =Parent.Width-Self.X*2
+            X: =30
+            Y: =ButtonCanvas1.Y+ButtonCanvas1.Height+10
+          Children:
+            - lbl_RDS_RequestID:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  PaddingLeft: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,5,10)
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Request ID"
+                  Visible: =If(DashboardScreen.Size=1|| DashboardScreen.Size=2,false,true)
+                  Width: =If(App.ActiveScreen.Size=3,110, 130)
+                  X: =lbl_RDS_TeamName.X+lbl_RDS_TeamName.Width-1
+            - lbl_RDS_PPN Number:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="JIRA Ticket#"
+                  Width: =130
+                  X: ='lbl_RDS_PPN Owner'.X+'lbl_RDS_PPN Owner'.Width-1
+            - lbl_RDS_TeamName:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  PaddingLeft: =15
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Workspace Name"
+                  Width: =160
+            - lbl_RDS_BackupOwner:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Requestor"
+                  Width: =170
+                  X: ='lbl_RDS_PPN Owner'.X+'lbl_RDS_PPN Owner'.Width-1
+            - lbl_RDS_Requestor:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Approver"
+                  Width: =130
+                  X: ='lbl_RDS_PPN Owner'.X+'lbl_RDS_PPN Owner'.Width-1
+            - lbl_RDS_PPN Owner:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =110
+                  PaddingLeft: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="PPN Owner"
+                  Visible: =If(DashboardScreen.Size=1,false,true)
+                  Width: =0
+                  X: =lbl_RDS_RequestID.X+lbl_RDS_RequestID.Width-1
+            - lbl_RDS_Part Owner:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =110
+                  PaddingLeft: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Part Owner"
+                  Visible: =If(DashboardScreen.Size=1|| DashboardScreen.Size=2 || DashboardScreen.Size=3|| DashboardScreen.Size=4,true,true)
+                  Width: =0
+                  X: ='lbl_RDS_PPN Number'.X+'lbl_RDS_PPN Number'.Width-1
+            - lbl_RDS_Request Status:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  PaddingRight: =25
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Request Status"
+                  Visible: =If(DashboardScreen.Size=1|| DashboardScreen.Size=2 || DashboardScreen.Size=3,false,true)
+                  Width: =160
+                  X: =
+            - lbl_RDS_HeaderAction:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =Parent.Height
+                  LayoutMinWidth: =80
+                  OnSelect: =
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: ="Action"
+                  Width: =130
+                  X: =
+                  Y: =
+      - gall_RequestorDashboardscreen_RequestorRequests:
+          Control: Gallery@2.15.0
+          Variant: Vertical
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            DelayItemLoading: =false
+            Fill: =VarBackgroundColor
+            Height: |-
+              =/*App.Height-RequestorDashboardScreen_HeaderComponent.ComponentHeight-img_RDS_HeaderLogo.Height-60- cont_RDS_HeaderSection.Height-RequestorDashboardScreen_FooterComponent.Height-10-gall_RDS_Pagination.Height -  If(RequestorDashboardScreen.Size=1 || RequestorDashboardScreen.Size=2 || RequestorDashboardScreen.Size=3,txt_RequestorDashboardScreen_SearchItemTitle.Height + txt_RequestorDashboardScreen_SearchItemTitle.Height + 10 ,txt_RequestorDashboardScreen_SearchItemTitle.Height+5)*/
+              Self.TemplateHeight * VarPaginiationCount
+            Items: |-
+              =WorkspaceRequests
+              /*With(
+                  {
+                      records:If(
+              icon_RDS_LastPage.DisplayMode = DisplayMode.Disabled,
+              LastN(FirstN(gall_RequestorRequests_Hiddengall.AllItems, VarPaginiationCount * VarPageNumber), VarPaginiationCount - (VarPaginiationCount * VarPageNumber - CountRows(gall_RequestorRequests_Hiddengall.AllItems))),
+              LastN(FirstN(gall_RequestorRequests_Hiddengall.AllItems, VarPaginiationCount * VarPageNumber), VarPaginiationCount))
+              },
+                  ForAll(
+                      Sequence(CountRows(records)),
+                      Patch(
+                          Last(
+                              FirstN(records,Value)),
+                              {rowNumber: Value}
+                          )
+                      )
+              )
+              */
+            LoadingSpinner: =LoadingSpinner.None
+            ShowScrollbar: =false
+            TemplateFill: =RGBA(255, 255, 255, 1)
+            TemplatePadding: =0
+            TemplateSize: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,180,45)
+            Width: =cont_RDS_HeaderSection.Width
+            X: =cont_RDS_HeaderSection.X
+            Y: =cont_RDS_HeaderSection.Y+cont_RDS_HeaderSection.Height
+          Children:
+            - rect_DS_gall_SeparatedLine:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(194, 194, 194, 1)
+                  Height: =1
+                  OnSelect: =Select(Parent)
+                  Visible: =false
+                  Width: =1237
+                  Y: =39
+            - lbl_RDS_Gall_RequestID:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =45
+                  PaddingLeft: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,0,10)
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.Title
+                  Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,Parent.Width/2,lbl_RDS_RequestID.Width)
+                  X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,Parent.Width/2,0)
+            - lbl_RDS_Gall_PPN Number:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.JIRA_TicketID
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,false,true)
+                  Width: ='lbl_RDS_PPN Number'.Width
+                  X: =lbl_RDS_Gall_RequestID.X+lbl_RDS_Gall_RequestID.Width
+            - lbl_RDS_Gall_PartNumber:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =45
+                  PaddingLeft: =15
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.Workspace_Name
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,false,true)
+                  Width: =lbl_RDS_TeamName.Width
+                  X: ='lbl_RDS_Gall_PPN Number'.X+'lbl_RDS_Gall_PPN Number'.Width
+            - lbl_RDS_Gall_Part Quantity:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.Workspace_Requester.DisplayName
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,false,true)
+                  Width: =lbl_RDS_BackupOwner.Width
+                  X: =lbl_RDS_Gall_PartNumber.X+lbl_RDS_Gall_PartNumber.Width
+            - lbl_RDS_Gall_PPNOwner:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =0
+                  PaddingLeft: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.User_LOB_Function
+                  Visible: =lbl_RDS_Gall_RequestID.Visible
+                  Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.Width,'lbl_RDS_PPN Owner'.Width)
+                  X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.X,lbl_RDS_Gall_Requestor.X+lbl_RDS_Gall_Requestor.Width)
+                  Y: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_Requestor.Y + lbl_RDS_Gall_Requestor.Height,0)
+            - lbl_RDS_Gall_PartOwner:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  PaddingLeft: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.Status.Value
+                  Visible: =lbl_RDS_Gall_RequestID.Visible
+                  Width: ='lbl_RDS_Request Status'.Width
+                  X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.X,lbl_RDS_Gall_PPNOwner.X+lbl_RDS_Gall_PPNOwner.Width)
+                  Y: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_PPNOwner.Y + lbl_RDS_Gall_PPNOwner.Height,0)
+            - lbl_RDS_Gall_Requestor:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: ="Helvetica Neue"
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
+                  Text: =ThisItem.FTO_Approver.DisplayName
+                  Visible: =lbl_RDS_Gall_RequestID.Visible
+                  Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.Width,lbl_RDS_Requestor.Width)
+                  X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.X,'lbl_RDS_Gall_Part Quantity'.X+'lbl_RDS_Gall_Part Quantity'.Width)
+                  Y: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.Y + lbl_RDS_Gall_RequestID.Height ,0)
+            - lbl_Gall_RDS_RequestIdHeader:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.Approved_Declined_Date
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =If(App.ActiveScreen.Size=3,110, 130)
+                  Y: =lbl_RDS_Gall_RequestID.Y
+            - lbl_Gall_RDS_RequestorHeader:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.Requested_Date
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =130
+                  Y: =lbl_RDS_Gall_Requestor.Y
+            - lbl_Gall_RDS_PPNOwnerHeader:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.AdditionalJusticiation_Approve.Value
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =200
+                  Y: =lbl_RDS_Gall_PPNOwner.Y
+            - lbl_Gall_RDS_PartOwnerHeader:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =0
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.AdditionalJustification
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =200
+                  Y: =lbl_RDS_Gall_PartOwner.Y
+            - lbl_Gall_RDS_RequestStatusHeader:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =45
+                  PaddingRight: =25
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.DeclinedReasons
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =160
+            - img_Gall_View_1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =40
+                  Image: =Icon.View
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =5
+                  PaddingTop: =5
+                  Width: =30
+                  X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.X,'lbl_RDS_Request Status'.X + 'lbl_RDS_Request Status'.Width + 10)
+                  Y: =lbl_Gall_RDS_PPNOwnerHeader_1.Y
+            - lbl_Gall_RDS_PPNOwnerHeader_1:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Color: =RGBA(51, 51, 51, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =45
+                  Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
+                  Text: =ThisItem.FTO_Approver.DisplayName
+                  Visible: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2, true , false )
+                  Width: =160
+            - rect_DS_gall_HoverColor:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  BorderStyle: =BorderStyle.None
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =Parent.TemplateHeight
+                  HoverFill: |-
+                    =//RGBA(166, 166, 166, 0.15)
+                    RGBA(161, 200, 194, 0.3)
+                  OnSelect: =Select(Parent)
+                  Visible: =false
+                  Width: =Parent.Width
+            - Icon1_1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =img_Gall_View_1.Height
+                  Icon: =Icon.View
+                  OnSelect: |
+                    =Set(varSelectedItem,ThisItem);Set(varRequestType,"Edit");
+
+
+                    Navigate('RequestScreen',ScreenTransition.UnCoverRight);
+                  Tooltip: ="Click here to edit the other details"
+                  Visible: =false
+                  Width: =img_Gall_View_1.Width
+                  X: =img_Gall_View_1.X
+                  Y: =img_Gall_View_1.Y
+            - Icon1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =30
+                  Icon: =Icon.Edit
+                  OnSelect: |
+                    =Concurrent(Set(varSelected,ThisItem),
+                    Set(varRequestType,"View"));
+
+                    Navigate('RequestScreen',ScreenTransition.UnCoverRight);
+                  Tooltip: ="Click here to view the other details"
+                  Visible: =false
+                  Width: =30
+                  X: =Icon1_1.X+Icon1_1.Width+5
+                  Y: =8
+            - img_Gall_View_2:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =40
+                  Image: =
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =5
+                  PaddingTop: =5
+                  Width: =30
+                  X: =10
+                  Y: =lbl_Gall_RDS_PPNOwnerHeader_1.Y
+            - Icon1_2:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =img_Gall_View_2.Height
+                  Icon: =
+                  OnSelect: =
+                  Tooltip: ="Click here to edit the other details"
+                  Width: =img_Gall_View_2.Width
+                  X: =img_Gall_View_2.X
+                  Y: =img_Gall_View_2.Y
+            - ButtonCanvas4:
+                Control: Button@0.0.45
+                Properties:
+                  BasePaletteColor: =RGBA(249, 83, 109, 1)
+                  DisplayMode: =If(ThisItem.Status.Value="Submitted",DisplayMode.Edit,DisplayMode.Disabled)
+                  Icon: ="Eye"
+                  OnSelect: |-
+                    =Set(varSelectedItem,ThisItem);Set(varRequestType,"Edit");
+
+
+                    Navigate('RequestScreen',ScreenTransition.UnCoverRight);
+                  Text: ="Review"
+                  Width: =90
+                  X: =img_Gall_View_1.X
+                  Y: =3
+      - ButtonCanvas1:
+          Control: Button@0.0.45
+          Properties:
+            BasePaletteColor: =RGBA(249, 83, 109, 1)
+            Height: =34
+            Icon: ="Add"
+            OnSelect: |+
+              =
+              Concurrent(
+              Set(varSelectedItem,Blank()),
+              Set(varRequestType,"New"));
+              Navigate('RequestScreen',ScreenTransition.CoverRight);
+            Text: ="New Request"
+            Width: =150
+            X: =App.Width-Self.Width-20
+            Y: =Rectangle1.Y+Rectangle1.Height+10
