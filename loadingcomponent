@@ -1,0 +1,18 @@
+ComponentDefinitions:
+  cmp_Loading:
+    DefinitionType: CanvasComponent
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - img_Loading:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Height: =400
+            Image: =loader
+            ImagePosition: =ImagePosition.Fill
+            Width: =400
+            X: =(Parent.Width-img_Loading.Width)/2
+            Y: =(Parent.Height-img_Loading.Height)/2
