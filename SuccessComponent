@@ -1,0 +1,183 @@
+ComponentDefinitions:
+  cmp_Success:
+    DefinitionType: CanvasComponent
+    CustomProperties:
+      ButtonFill:
+        PropertyKind: Input
+        DisplayName: Button Fill
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(0, 0, 0, 1)
+      FooterColor:
+        PropertyKind: Input
+        DisplayName: Footer Color
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(0, 0, 0, 1)
+      HeaderIcon:
+        PropertyKind: Input
+        DisplayName: HeaderIcon
+        Description: A custom property
+        DataType: Image
+        Default: =
+      HeaderText:
+        PropertyKind: Input
+        DisplayName: Header Text
+        Description: A custom property
+        DataType: Text
+        Default: ="Text"
+      OkOnselect:
+        PropertyKind: Event
+        DisplayName: OkOnselect
+        Description: A custom property
+        ReturnType: Text
+        Default: ="Text"
+      PopUpMessage:
+        PropertyKind: Input
+        DisplayName: PopUpMessage
+        Description: A custom property
+        DataType: Text
+        Default: ="Text"
+    Properties:
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - cont_SuccessPopUp_2:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =App.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =App.Width
+          Children:
+            - rect_Success_LongBack_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(0, 0, 0, 0.49)
+                  Height: =Parent.Height
+                  Width: =Parent.Width
+            - btn_Success_ShortBack_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  DisplayMode: =DisplayMode.View
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Open Sans'
+                  Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,250,280)
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Text: =""
+                  Width: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,300,450)
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: =(Parent.Height - Self.Height)/2
+            - lbl_Success_Submittxt_2:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Font: ="Helvetica Neue"
+                  FontWeight: =FontWeight.Semibold
+                  Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,45, 60)
+                  Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,8,10)
+                  Text: =cmp_Success.PopUpMessage
+                  Width: =btn_Success_ShortBack_2.Width - 20
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: =Label6.Y + Label6.Height
+            - btn_Success_OK_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  AutoDisableOnSelect: =false
+                  BorderColor: =Self.Color
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  Fill: =cmp_Success.ButtonFill
+                  Font: ="Helvetica Neue"
+                  Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,30,35)
+                  HoverBorderColor: =Self.Fill
+                  HoverColor: =Self.Fill
+                  HoverFill: =Self.Color
+                  OnSelect: |
+                    =//Setting the SuccessPopup visible to false
+                    cmp_Success.OkOnselect()
+                  PressedBorderColor: =Self.Fill
+                  PressedFill: =Self.Fill
+                  RadiusBottomLeft: =25
+                  RadiusBottomRight: =25
+                  RadiusTopLeft: =25
+                  RadiusTopRight: =25
+                  Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,8,10)
+                  Text: ="OK"
+                  Width: =65
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: =lbl_Success_Submittxt_2.Y + lbl_Success_Submittxt_2.Height + 15
+            - btn_Success_Success_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  Align: =Align.Left
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  Color: =RGBA(255, 255, 255, 1)
+                  DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                  DisplayMode: =DisplayMode.View
+                  Fill: =cmp_Success.FooterColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: |-
+                    =//If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,20,20)
+                    25
+                  HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                  PaddingLeft: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,55, 85)
+                  PressedBorderColor: =Self.Fill
+                  PressedColor: =Self.Fill
+                  PressedFill: =Self.Color
+                  RadiusBottomLeft: =30
+                  RadiusBottomRight: =30
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,12,15)
+                  Text: =//cmp_Success.HeaderText
+                  Visible: =false
+                  Width: =btn_Success_ShortBack_2.Width
+                  X: =btn_Success_ShortBack_2.X
+                  Y: =btn_Success_ShortBack_2.Y +btn_Success_ShortBack_2.Height - Self.Height
+            - img_Success_Success_2:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,65, 80)
+                  Image: =cmp_Success.HeaderIcon
+                  ImagePosition: =ImagePosition.Fill
+                  Width: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,65, 100)
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: =btn_Success_ShortBack_2.Y + 15
+            - Label6:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(89, 0, 0, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Bold
+                  Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,30,35)
+                  Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,12,15)
+                  Text: =cmp_Success.HeaderText
+                  Width: =btn_Success_ShortBack_2.Width - 20
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: |-
+                    =//(Parent.Height - Self.Height)/2 - 10
+                    img_Success_Success_2.Y +img_Success_Success_2.Height + 5
