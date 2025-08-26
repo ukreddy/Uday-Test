@@ -1,0 +1,1016 @@
+Screens:
+  RequestScreen:
+    Properties:
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - Canvas_NR_NewRequest:
+          Control: FluidGrid@2.3.0
+          Properties:
+            BorderThickness: =0
+            Height: =Parent.Height - Self.Y - 10 - 40
+            Width: =App.Width - Self.X
+            Y: =Rectangle1_1.Y+Rectangle1_1.Height+2
+          Children:
+            - dc_PartRequestSubmission:
+                Control: DataCard@1.0.2
+                Properties:
+                  Height: =0
+                  Width: =App.Width
+                  X: =0
+                  Y: =0
+                Children:
+                  - btn_NR_PartRequest:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Align: =Align.Left
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: =DisplayMode.View
+                        Fill: =RGBA(0, 52, 83, 1)
+                        Font: ="Helvetica Neue"
+                        Height: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,30,40)
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        PaddingLeft: =10
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,10,11.25)
+                        Text: ="Request Details"
+                        Width: =cont_RequestDetails.Width + 2
+                        X: =cont_RequestDetails.X - 1
+                        Y: =lbl_NR_HeaderText.Y + lbl_NR_HeaderText.Height + 20
+                  - cont_RequestDetails:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 52, 83, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        Height: =dtApproved_DeclinedDate.Y + dtApproved_DeclinedDate.Height + 20
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,App.Width-30,App.Width-100)
+                        X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,10, 50)
+                        Y: =btn_NR_PartRequest.Y + btn_NR_PartRequest.Height
+                      Children:
+                        - lblJIRATicketNumber:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,25,25)
+                              PaddingLeft: =If(varRequestType="View",5,0)
+                              Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,8,10)
+                              Text: ="JIRA Ticket Number"
+                              Width: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2,Parent.Width,Parent.Width/3)
+                              X: =10
+                              Y: =10
+                        - lbl_UserLOB:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="User LOB & Function"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =lblJIRATicketNumber.X
+                              Y: =txt_JIRA_TicketNumber.Y+txt_JIRA_TicketNumber.Height+10
+                        - lbl_NR_PartOwnerEmail:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="Workspace Requestor"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =lblRequestedDate.Width+lblRequestedDate.X
+                              Y: =lblRequestedDate.Y
+                        - cbWorkspaceRequestor:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              ChevronBackground: =RGBA(0, 0, 0, 0)
+                              ChevronFill: =RGBA(0, 0, 0, 1)
+                              ChevronHoverBackground: =
+                              ChevronHoverFill: =RGBA(0, 0, 0, 1)
+                              Color: =RGBA(102, 102, 102, 1)
+                              DefaultSelectedItems: =varSelectedItem.Workspace_Requester
+                              DisplayFields: =["DisplayName"]
+                              DisplayMode: =txt_JIRA_TicketNumber.DisplayMode
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =0
+                              Font: ="Helvetica Neue"
+                              Height: =txt_JIRA_TicketNumber.Height
+                              HoverColor: =Self.Color
+                              HoverFill: =RGBA(237, 237, 237, 1)
+                              InputTextPlaceholder: =If(varRequestType="View","","Enter Backup Owner")
+                              IsSearchable: =false
+                              Items: =Choices(WorkspaceRequests.Workspace_Requester)
+                              NoSelectionText: ="Select Workspace Requestor"
+                              OnChange: =
+                              PressedColor: =Self.Color
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              SearchFields: =["Email"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 52, 83, 1)
+                              SelectionTagFill: =
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =txt_JIRA_TicketNumber.Width-10
+                              X: =lbl_NR_PartOwnerEmail.X
+                              Y: =txt_JIRA_TicketNumber.Y
+                        - lblRequestedDate:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="Request Date"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lblJIRATicketNumber.X ,lblJIRATicketNumber.X + lblJIRATicketNumber.Width)
+                              Y: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lblJIRATicketNumber.Y + lblJIRATicketNumber.Height + 10,lblJIRATicketNumber.Y)
+                        - lblWN:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="Workspace Name"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lblJIRATicketNumber.X ,lbl_UserLOB.X + lbl_UserLOB.Width)
+                              Y: =lbl_UserLOB.Y
+                        - txtLOB:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.Workspace_Name
+                              DisplayMode: =txt_JIRA_TicketNumber.DisplayMode
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =txt_JIRA_TicketNumber.Height
+                              HintText: ="Enter Phone Number"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =txt_JIRA_TicketNumber.Width
+                              X: =lblJIRATicketNumber.X
+                              Y: =lbl_UserLOB.Y + lbl_UserLOB.Height
+                        - txt_JIRA_TicketNumber:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.JIRA_TicketID
+                              DisplayMode: =If(varRequestType="New",DisplayMode.Edit,DisplayMode.Disabled)
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =30
+                              HintText: ="Enter Employee ID"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =Parent.Width/3-10
+                              X: =10
+                              Y: =lblJIRATicketNumber.Y+ lblJIRATicketNumber.Height+5
+                        - lblApproveddate:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="Approved/Declined Date"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =10
+                              Y: =txtLOB.Y+txtLOB.Height+5
+                        - lblFTOApprover:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblJIRATicketNumber.Height
+                              PaddingLeft: =lblJIRATicketNumber.PaddingLeft
+                              Size: =lblJIRATicketNumber.Size
+                              Text: ="FTO Approver"
+                              Width: =lblJIRATicketNumber.Width
+                              X: =lblWN.X + lblWN.Width
+                              Y: =lbl_UserLOB.Y
+                        - dtApproved_DeclinedDate:
+                            Control: DatePicker@0.0.46
+                            Properties:
+                              DisplayMode: =DisplayMode.View
+                              X: =lblApproveddate.X
+                              Y: =lblApproveddate.Y+lblApproveddate.Height
+                        - dtRequestedDate:
+                            Control: DatePicker@0.0.46
+                            Properties:
+                              Height: =txt_JIRA_TicketNumber.Height
+                              Width: =lblRequestedDate.Width
+                              X: =lblRequestedDate.X
+                              Y: =txt_JIRA_TicketNumber.Y
+                        - txtWorkspaceName:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.Workspace_Name
+                              DisplayMode: =txt_JIRA_TicketNumber.DisplayMode
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =txt_JIRA_TicketNumber.Height
+                              HintText: ="Enter Phone Number"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =txt_JIRA_TicketNumber.Width
+                              X: =lblWN.X
+                              Y: =lbl_UserLOB.Y + lbl_UserLOB.Height
+                        - cbFTOApprover:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              ChevronBackground: =RGBA(0, 0, 0, 0)
+                              ChevronFill: =RGBA(0, 0, 0, 1)
+                              ChevronHoverBackground: =
+                              ChevronHoverFill: =RGBA(0, 0, 0, 1)
+                              Color: =RGBA(102, 102, 102, 1)
+                              DefaultSelectedItems: =varSelectedItem.FTO_Approver
+                              DisplayFields: =["DisplayName"]
+                              DisplayMode: =txt_JIRA_TicketNumber.DisplayMode
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =0
+                              Font: ="Helvetica Neue"
+                              Height: =txt_JIRA_TicketNumber.Height
+                              HoverColor: =Self.Color
+                              HoverFill: =RGBA(237, 237, 237, 1)
+                              InputTextPlaceholder: =If(varRequestType="View","","Enter Backup Owner")
+                              IsSearchable: =false
+                              Items: =Choices(WorkspaceRequests.Workspace_Requester)
+                              NoSelectionText: ="Select FTO Approver"
+                              OnChange: =
+                              PressedColor: =Self.Color
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              SearchFields: =["Email"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 52, 83, 1)
+                              SelectionTagFill: =
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =txt_JIRA_TicketNumber.Width-10
+                              X: =lblFTOApprover.X
+                              Y: =txtLOB.Y
+                  - img_NR_HeaderLogo:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Height: =10
+                        Image: =
+                        ImagePosition: =ImagePosition.Fill
+                        Width: =Parent.Width+If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,30,5)
+                        X: =1
+                  - lbl_NR_HeaderText:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        Height: =img_NR_HeaderLogo.Height
+                        PaddingLeft: =10+If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,15,5)
+                        Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,10,12)
+                        Text: =Switch(varRequestType,"New","New Request","Edit","Edit Request","View","View Request","Approval","Approval Action")
+                        Width: =img_NR_HeaderLogo.Width
+                        X: =img_NR_HeaderLogo.X
+                        Y: =img_NR_HeaderLogo.Y
+                  - Cont_Buttons:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =50
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =cont_RequestDetails.Width
+                        X: =cont_RequestDetails.X
+                        Y: =cont_Checklist.Y+cont_Checklist.Height+10
+                      Children:
+                        - btn_NR_Approve:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              AutoDisableOnSelect: =false
+                              BorderColor: =ColorFade(Self.Fill, -15%)
+                              BorderThickness: =0
+                              Color: =RGBA(255, 255, 255, 1)
+                              DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                              Fill: =VarChevronColor
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Normal
+                              Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2|| App.ActiveScreen.Size=3,30,35)
+                              HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =Self.Fill
+                              OnSelect: |
+                                =//Set loading variable into true
+
+                                UpdateContext(
+                                    {
+                                        VarRequestStatus: "Approved",
+                                        VarPopup: true,
+                                        VarSuccessPopupMessage: "Are you sure you want to approve the Request?"
+                                    }
+                                );
+                              PressedBorderColor: =Self.Fill
+                              PressedFill: =Self.Fill
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,Varfontsize-1,Varfontsize+1)
+                              Text: ="Approve"
+                              Tooltip: ="Click to Submit the data"
+                              Visible: =varRequestType="Approval" && varSelectedItem.Status.Value = "Submitted"
+                              Width: =If(App.ActiveScreen.Size=1 ,60, App.ActiveScreen.Size=2,80,100)
+                              X: =Parent.Width - Self.Width - 15
+                              Y: =5
+                        - btn_NR_Reject:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              AutoDisableOnSelect: =false
+                              BorderColor: =Self.Color
+                              Color: =RGBA(0, 133, 173, 1)
+                              DisabledBorderColor: =VarfontColor
+                              DisabledColor: =VarfontColor
+                              DisplayMode: |-
+                                =/*If(NewRequestForm.Valid && If(cb_NR_ItemType.Selected.Value <> "General Idea", !IsBlank(cb_NR_HelpNeededBox1A) && !IsBlank(cb_NR_HelpNeededBox2A) && !IsBlank(cb_NR_HelpNeededBox2A) && !IsBlank(txt_NR_HelpNeededBox2B) && CountIf(CollHiddenFailureCauseIDDetails,IsBlank(Title)||IsBlank('Targeted Capability'))=0,CountIf(CollHiddenFailureCauseIDDetails,IsBlank(Title))=0),DisplayMode.Edit,DisplayMode.Disabled)*/
+                                DisplayMode.Edit
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Bold
+                              Height: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2|| App.ActiveScreen.Size=3,30,35)
+                              HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                              HoverColor: =RGBA(255,255,255,1)
+                              HoverFill: =Self.Color
+                              OnSelect: "=//Set loading variable into true\nUpdateContext(\n    {\n        VarRequestStatus: \"Rejected\",\n        VarPopup: true,\n        VarSuccessPopupMessage: \"Please provide reason for rejecting the Request.\"\n    }\n);\n "
+                              PressedBorderColor: =Self.Color
+                              PressedColor: =RGBA(255,255,255,1)
+                              PressedFill: =Self.Color
+                              RadiusBottomLeft: =5
+                              RadiusBottomRight: =5
+                              RadiusTopLeft: =5
+                              RadiusTopRight: =5
+                              Size: =If(App.ActiveScreen.Size=1 || App.ActiveScreen.Size=2 || App.ActiveScreen.Size=3,Varfontsize-1,Varfontsize+1)
+                              Text: ="Reject"
+                              Tooltip: ="Click to Save the data"
+                              Visible: =varRequestType="Approval" && varSelectedItem.Status.Value = "Submitted"
+                              Width: =If(App.ActiveScreen.Size=1 ,60, App.ActiveScreen.Size=2,80,100)
+                              X: =btnSubmit.X
+                              Y: =5
+                        - btnSubmit:
+                            Control: Button@0.0.45
+                            Properties:
+                              BasePaletteColor: =RGBA(249, 83, 109, 1)
+                              Icon: ="Save"
+                              OnSelect: |
+                                =//Set loading variable into true
+                                Set(
+                                    VarLoading,
+                                    true
+                                );
+                                If(
+                                    IsBlank(varSelectedItem),
+                                    Patch(
+                                        WorkspaceRequests,
+                                        Defaults(WorkspaceRequests),
+                                        {
+                                            JIRA_TicketID: txt_JIRA_TicketNumber.Text,
+                                            Workspace_Name: txtWorkspaceName.Text,
+                                            Requested_Date: dtRequestedDate.SelectedDate,
+                                            Workspace_Requester: cbWorkspaceRequestor.Selected,
+                                            User_LOB_Function: txtLOB.Text,
+                                            FTO_Approver: cbFTOApprover.Selected,
+                                            Status: {Value: "Submitted"},
+                                            Title: Year(Now()) & "00" & Last(WorkspaceRequests).ID + 1
+                                        }
+                                    ),
+                                    Patch(
+                                        WorkspaceRequests,
+                                        {ID: varSelectedItem.ID},
+                                        {Status: {Value: "Submitted"}}
+                                    )
+                                );
+                                UpdateContext(
+                                    {
+                                        VarSuccessPopupMessage: "Your request has been successfully submitted.",
+                                        VarPopupConfirmation: true
+                                    }
+                                );
+                                Set(
+                                    VarLoading,
+                                    false
+                                );
+                              Text: ="Submit"
+                              Visible: =If(varRequestType="New",true,false)
+                              X: =Parent.Width - Self.Width - 15
+                              Y: =8
+                        - ButtonCanvas3:
+                            Control: Button@0.0.45
+                            Properties:
+                              BasePaletteColor: =RGBA(189, 178, 176, 1)
+                              Icon: ="ArrowLeft"
+                              OnSelect: |+
+                                =
+                                Navigate(DashboardScreen,ScreenTransition.CoverRight);
+                              Text: ="Back"
+                              X: = If(varRequestType<>"View", 20, Parent.Width - Self.Width - 15)
+                              Y: =5
+                        - btnUpdate:
+                            Control: Button@0.0.45
+                            Properties:
+                              BasePaletteColor: =RGBA(249, 83, 109, 1)
+                              Icon: ="Save"
+                              OnSelect: "=//Set loading variable into true\nSet(\n    VarLoading,\n    true\n);\n\n//Validation\nIf((IsBlank(rgCheck1.Selected) ||\nIsBlank(rgCheck2.Selected) ||\nIsBlank(rgCheck3.Selected) ||\nIsBlank(rgCheck4.Selected) ||\nIsBlank(rgCheck5.Selected) ||\nIsBlank(rgCheck6.Selected) ||\nIsBlank(rgCheck7.Selected) ||\nIsBlank(rgCheck8.Selected) ||\nIsBlank(rgCheckApprove1.Selected) ||\nIsBlank(rgCheckApprove2.Selected) ||\nIsBlank(rgCheckApprove3.Selected) ||\nIsBlank(rgCheckApprove4.Selected) ||\nIsBlank(rgCheckApprove5.Selected) ||\nIsBlank(rgCheckApprove6.Selected) ||\nIsBlank(rgCheckApprove7.Selected) ||\nIsBlank(rgCheckApprove8.Selected) ||IsBlank(rgcheckAllAbove.Selected) || IsBlank(rgCheckApprovalStatus.Selected) ) || (rgCheckApprovalStatus.Selected.Value=\"Declined\" && IsBlank(txtReasonforDecline)),UpdateContext({ctxValid:false}),UpdateContext({ctxValid:true}));\nIf(ctxValid, \nPatch(\n    WorkspaceRequests,\n    {ID: varSelectedItem.ID},\n    {\n        Status: {Value: rgCheckApprovalStatus.Selected.Value},\n        Approved_Declined_Date:Now(),\n        Need_Dedicated_Workspace:If(rgCheck1.Selected.Value=\"Yes\",true,false),\n        Need_Dedicated_Workspace_Approve:If(rgCheckApprove1.Selected.Value=\"Yes\",true,false),\n        is_Workspace_For_Business_Purpose:If(rgCheck2.Selected.Value=\"Yes\",true,false),\n        is_Workspace_For_Business_Purpose_Approve:If(rgCheckApprove2.Selected.Value=\"Yes\",true,false),Data_Published_NOT_be_Restricted:If(rgCheck3.Selected.Value=\"Yes\",true,false),Data_Published_NOT_be_Restricted_Approve:If(rgCheckApprove3.Selected.Value=\"Yes\",true,false),AD_Groups_Created:If(rgCheck4.Selected.Value=\"Yes\",true,false),AD_Groups_Created_Approve:If(rgCheckApprove4.Selected.Value=\"Yes\",true,false),Is_PROD_UAT_Test_Environments:If(rgCheck5.Selected.Value=\"Yes\",true,false),Is_PROD_UAT_Test_Environments_Approve:If(rgCheckApprove5.Selected.Value=\"Yes\",true,false),PowerBI_Developer_In_Your_Team:If(rgCheck6.Selected.Value=\"Yes\",true,false),PowerBI_Developer_In_Your_Team_Approve:If(rgCheckApprove6.Selected.Value=\"Yes\",true,false),Does_TheWorkspace_name_Follow_thenamingconvention:If(rgCheck7.Selected.Value=\"Yes\",true,false),Does_TheWorkspace_name_Follow_thenamingconvention_Approve:If(rgCheckApprove7.Selected.Value=\"Yes\",true,false),Does_TheUser_Rollupto_Finance:If(rgCheck8.Selected.Value=\"Yes\",true,false),Does_TheUser_Rollupto_Finance_Approve:If(rgCheckApprove8.Selected.Value=\"Yes\",true,false),AllTheChecklistsAreMarkedYes:If(rgcheckAllAbove.Selected.Value=\"Yes\",true,false),AllTheChecklistsAreMarked_Approve:{Value:rgCheckApprovalStatus.Selected.Value},AdditionalJustification:txtAdditionalJustification.Text,DeclinedReasons:txtReasonforDecline.Text\n        \n    }\n);\nUpdateContext(\n    {\n        VarSuccessPopupMessage: \"Your request has been successfully submitted.\",\n        VarPopupConfirmation: true\n    }\n);\n,UpdateContext(\n    {\n        VarSuccessPopupMessage: \"Please fill all the required fields.\",\n        VarPopupConfirmation: true\n    }\n); );\n\nSet(\n    VarLoading,\n    false\n);\n"
+                              Text: ="Update"
+                              Visible: =If(varRequestType="Edit",true,false)
+                              X: =Parent.Width - Self.Width - 15
+                              Y: =btnSubmit.Y
+                  - Checklist:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Align: =Align.Left
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =0
+                        Color: =RGBA(255, 255, 255, 1)
+                        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                        DisplayMode: =DisplayMode.View
+                        Fill: =RGBA(0, 52, 83, 1)
+                        Font: ="Helvetica Neue"
+                        Height: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,30,40)
+                        HoverBorderColor: =ColorFade(Self.BorderColor, 20%)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(RGBA(56, 96, 178, 1), -20%)
+                        PaddingLeft: =10
+                        PressedBorderColor: =Self.Fill
+                        PressedColor: =Self.Fill
+                        PressedFill: =Self.Color
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,10,11.25)
+                        Text: ="Finanace - PBI Workspace Request checklist"
+                        Width: =cont_RequestDetails.Width + 2
+                        X: =cont_RequestDetails.X - 1
+                        Y: =cont_RequestDetails.Y+cont_RequestDetails.Height
+                  - cont_Checklist:
+                      Control: GroupContainer@1.3.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(0, 52, 83, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        ContentLanguage: =
+                        DropShadow: =DropShadow.None
+                        Height: =txtReasonforDecline.Y+txtReasonforDecline.Height+15
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,App.Width-30,App.Width-100)
+                        X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,10, 50)
+                        Y: =Checklist.Y+Checklist.Height
+                      Children:
+                        - lblChecklist1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =35
+                              PaddingLeft: =If(varRequestType="View",5,0)
+                              Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,8,10)
+                              Text: ="An existing workspace is NOT available for user by your team, or you need a dedicated workspace"
+                              Width: =Parent.Width/2
+                              X: =10
+                              Y: =10+lblYes_No.Height+lblYes_No.Y
+                        - lblChecklist3:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="The data published in the workspace will NOT be Restricted"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist2.Y+lblChecklist2.Height
+                        - lblChecklist2:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Is this workspace going to be used for business purpose (not Personal)?"
+                              Width: =Parent.Width/2
+                              X: =lblChecklist1.X
+                              Y: =lblChecklist1.Y+lblChecklist1.Height
+                        - lblApprove:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,25,25)
+                              PaddingLeft: =If(varRequestType="View",5,0)
+                              Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,8,10)
+                              Text: ="Approve if"
+                              Width: =140
+                              X: =lblYes_No.X-Self.Width-10
+                              Y: =10
+                        - rgCheckApprove1:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist1.Y
+                        - lblYes_No:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: =Font.'Open Sans'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,25,25)
+                              PaddingLeft: =If(varRequestType="View",5,0)
+                              Size: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,8,10)
+                              Text: ="Yes/No"
+                              Width: =140
+                              X: =Parent.Width-Self.Width-10
+                              Y: =lblApprove.Y
+                        - rgCheck1:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist1.Y
+                        - rgCheckApprove2:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist2.Y
+                        - rgCheck2:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist2.Y
+                        - rgCheckApprove3:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist3.Y
+                        - rgCheck3:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist3.Y
+                        - lblChecklist4:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Have you created AD groups for workspace roles"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist3.Y+lblChecklist1.Height
+                        - lblChecklist5:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Are you requesting a Prod, UAT and /or Test environments?"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist4.Y+lblChecklist1.Height
+                        - lblChecklist6:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Do you have Power BI developers on your team?"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist5.Y+lblChecklist1.Height
+                        - lblChecklist7:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Does the workspace name follow the naming convention [""Fin"" - 'LOB' - 'Function']"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist6.Y+lblChecklist1.Height
+                        - lblChecklist8:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Does the user rool up to Finance?"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist7.Y+lblChecklist1.Height
+                        - rgCheckApprove4:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist4.Y
+                        - rgCheck4:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist4.Y
+                        - rgCheckApprove5:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist5.Y
+                        - rgCheck5:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist5.Y
+                        - rgCheckApprove6:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist6.Y
+                        - rgCheck6:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist6.Y
+                        - rgCheckApprove7:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist7.Y
+                        - rgCheck7:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist7.Y
+                        - rgCheckApprove8:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblApprove.X-5
+                              Y: =lblChecklist8.Y
+                        - rgCheck8:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist8.Y
+                        - lblChecklist9:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="* Approve if requester answers ""Yes"" to all above questions. If not, ask requester to provide"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist8.Y+lblChecklist1.Height
+                        - rgCheckApprovalStatus:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height*1.8
+                              Items: =["Approved", "Declined"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width*1.5
+                              X: =lblApprove.X-60
+                              Y: =lblChecklist9.Y
+                        - rgcheckAllAbove:
+                            Control: Radio@0.0.25
+                            Properties:
+                              FontSize: =12
+                              Height: =lblChecklist1.Height
+                              Items: =["Yes", "No"]
+                              Layout: ='RadioGroupCanvas.Layout'.Horizontal
+                              RadioSize: =10
+                              Width: =lblApprove.Width
+                              X: =lblYes_No.X
+                              Y: =lblChecklist9.Y
+                        - lblChecklist8_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Additional Justification"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist9.Y+lblChecklist1.Height
+                        - lblChecklist8_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblChecklist1.Height
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="If declined, please add notes, Reason for declining:"
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =txtAdditionalJustification.Y+txtAdditionalJustification.Height+5
+                        - txtReasonforDecline:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.DeclinedReasons
+                              DisplayMode: =If(varRequestType="New",DisplayMode.Edit,lblJIRATicketNumber.DisplayMode)
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =lblJIRATicketNumber.Height*3
+                              HintText: ="Enter reasons for declining"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              Mode: =TextMode.MultiLine
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =Parent.Width-Self.X-10
+                              X: =10
+                              Y: =lblChecklist8_2.Y+ lblChecklist8_2.Height+5
+                        - txtAdditionalJustification:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.AdditionalJustification
+                              DisplayMode: =If(varRequestType="New",DisplayMode.Edit,lblJIRATicketNumber.DisplayMode)
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =lblJIRATicketNumber.Height*3
+                              HintText: ="Enter additional justification"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              Mode: =TextMode.MultiLine
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Width: =Parent.Width-Self.X-10
+                              X: =lblChecklist8_1.X
+                              Y: =lblChecklist8_1.Y+ lblChecklist8_1.Height+5
+                  - Label2:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(0, 18, 107, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        Font: =Font.'Open Sans'
+                        FontWeight: =FontWeight.Semibold
+                        Size: =11
+                        Text: |-
+                          ="Status: "&varSelectedItem.Status.Value
+                        Width: =200
+                        X: =btn_NR_PartRequest.Width-Self.Width-10
+                        Y: =btn_NR_PartRequest.Y
+      - Rectangle1_1:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(168, 0, 0, 1)
+            Height: =40
+            Width: =1366
+            Y: =20
+      - Label1_1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Bold
+            Text: ="FTO - Finance - Workspace Request "
+            Width: =340
+            X: =App.Width/2-Self.Width/2
+            Y: =20
+      - cmp_Success_1:
+          Control: CanvasComponent
+          ComponentName: cmp_Success
+          Properties:
+            ButtonFill: =RGBA(0, 0, 0, 1)
+            FooterColor: =RGBA(0, 0, 0, 1)
+            HeaderIcon: =
+            HeaderText: =If(!ctxValid,"Warning","Success")
+            Height: =App.Height
+            OkOnselect: |-
+              =UpdateContext({VarPopupConfirmation:false});
+              If(ctxValid,
+              Navigate(DashboardScreen,ScreenTransition.Cover););
+            PopUpMessage: =VarSuccessPopupMessage
+            Visible: =VarPopupConfirmation
+            Width: =App.Width
+      - cmp_Loading_1:
+          Control: CanvasComponent
+          ComponentName: cmp_Loading
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =App.Height
+            Visible: =VarLoading
+            Width: =App.Width
