@@ -2,6 +2,10 @@ Screens:
   RequestScreen:
     Properties:
       LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+      OnVisible: |-
+        =Reset(chbAllYes);Reset(chbAllYes_1);Reset(rgCheckApprove1);Reset(rgCheckApprove2);Reset(rgCheckApprove3);Reset(rgCheckApprove4);Reset(rgCheckApprove5);Reset(rgCheckApprove6);Reset(rgCheckApprove7);Reset(rgCheckApprove8);
+
+        Reset(rgCheck1);Reset(rgCheck2);Reset(rgCheck3);Reset(rgCheck4);Reset(rgCheck5);Reset(rgCheck6);Reset(rgCheck7);Reset(rgCheck8);
     Children:
       - Canvas_NR_NewRequest:
           Control: FluidGrid@2.3.0
@@ -290,8 +294,8 @@ Screens:
                               ChevronHoverBackground: =
                               ChevronHoverFill: =RGBA(0, 0, 0, 1)
                               Color: =RGBA(102, 102, 102, 1)
-                              DefaultSelectedItems: =varSelectedItem.FTO_Approver
-                              DisplayFields: =["DisplayName"]
+                              DefaultSelectedItems: =Filter(collFTOApprovers,ApproverEmail= varSelectedItem.FTO_Approver.Email)
+                              DisplayFields: =["ApproverDisplayName"]
                               DisplayMode: =txt_JIRA_TicketNumber.DisplayMode
                               FocusedBorderColor: =Color.Transparent
                               FocusedBorderThickness: =0
@@ -301,12 +305,12 @@ Screens:
                               HoverFill: =RGBA(237, 237, 237, 1)
                               InputTextPlaceholder: =If(varRequestType="View","","Enter Backup Owner")
                               IsSearchable: =false
-                              Items: =Choices(WorkspaceRequests.Workspace_Requester)
+                              Items: =collFTOApprovers//Choices(WorkspaceRequests.Workspace_Requester)
                               NoSelectionText: ="Select FTO Approver"
                               OnChange: =
                               PressedColor: =Self.Color
                               PressedFill: =RGBA(0, 0, 0, 0)
-                              SearchFields: =["Email"]
+                              SearchFields: =["ApproverEmail"]
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 52, 83, 1)
@@ -434,6 +438,7 @@ Screens:
                                     VarLoading,
                                     true
                                 );
+                                UpdateContext({ctxValid:true});
                                 If(
                                     IsBlank(varSelectedItem),
                                     Patch(
@@ -445,8 +450,17 @@ Screens:
                                             Requested_Date: dtRequestedDate.SelectedDate,
                                             Workspace_Requester: cbWorkspaceRequestor.Selected,
                                             User_LOB_Function: txtLOB.Text,
-                                            FTO_Approver: cbFTOApprover.Selected,
+                                            FTO_Approver:{
+                                                        '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                        Claims: "i:0#.f|membership|" & cbFTOApprover.Selected.ApproverEmail,
+                                                        Department: "",
+                                                        DisplayName: cbFTOApprover.Selected.ApproverEmail,
+                                                        Email: cbFTOApprover.Selected.ApproverEmail,
+                                                        JobTitle: "",
+                                                        Picture: ""
+                                                    },
                                             Status: {Value: "Submitted"},
+                                            PowerBIDeveloper:txtPowerBIDeveloper.Text,
                                             Title: Year(Now()) & "00" & Last(WorkspaceRequests).ID + 1
                                         }
                                     ),
@@ -550,7 +564,7 @@ Screens:
                               Text: ="An existing workspace is NOT available for user by your team, or you need a dedicated workspace"
                               Width: =Parent.Width/2
                               X: =10
-                              Y: =10+lblYes_No.Height+lblYes_No.Y
+                              Y: =10+lblYes_No.Height+lblYes_No.Y+chbAllYes.Height-10
                         - lblChecklist3:
                             Control: Label@2.5.1
                             Properties:
@@ -593,6 +607,7 @@ Screens:
                         - rgCheckApprove1:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -617,6 +632,7 @@ Screens:
                         - rgCheck1:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -628,6 +644,7 @@ Screens:
                         - rgCheckApprove2:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -639,6 +656,7 @@ Screens:
                         - rgCheck2:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -650,6 +668,7 @@ Screens:
                         - rgCheckApprove3:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -661,6 +680,7 @@ Screens:
                         - rgCheck3:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -737,6 +757,7 @@ Screens:
                         - rgCheckApprove4:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -748,6 +769,7 @@ Screens:
                         - rgCheck4:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -759,6 +781,7 @@ Screens:
                         - rgCheckApprove5:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -770,6 +793,7 @@ Screens:
                         - rgCheck5:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -781,6 +805,7 @@ Screens:
                         - rgCheckApprove6:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -792,6 +817,7 @@ Screens:
                         - rgCheck6:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -803,6 +829,7 @@ Screens:
                         - rgCheckApprove7:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -814,6 +841,7 @@ Screens:
                         - rgCheck7:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -825,6 +853,7 @@ Screens:
                         - rgCheckApprove8:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -836,6 +865,7 @@ Screens:
                         - rgCheck8:
                             Control: Radio@0.0.25
                             Properties:
+                              DefaultSelectedItems: =If(selectYesAll2,{Value:"Yes"})
                               FontSize: =12
                               Height: =lblChecklist1.Height
                               Items: =["Yes", "No"]
@@ -891,7 +921,7 @@ Screens:
                               Text: ="Additional Justification"
                               Width: =lblChecklist1.Width
                               X: =lblChecklist2.X
-                              Y: =lblChecklist9.Y+lblChecklist1.Height
+                              Y: =txtPowerBIDeveloper.Y+txtPowerBIDeveloper.Height
                         - lblChecklist8_2:
                             Control: Label@2.5.1
                             Properties:
@@ -930,7 +960,7 @@ Screens:
                               Size: =lblJIRATicketNumber.Size
                               Width: =Parent.Width-Self.X-10
                               X: =10
-                              Y: =lblChecklist8_2.Y+ lblChecklist8_2.Height+5
+                              Y: =lblChecklist8_2.Y+ lblChecklist8_2.Height+1
                         - txtAdditionalJustification:
                             Control: Classic/TextInput@2.3.2
                             Properties:
@@ -956,7 +986,68 @@ Screens:
                               Size: =lblJIRATicketNumber.Size
                               Width: =Parent.Width-Self.X-10
                               X: =lblChecklist8_1.X
-                              Y: =lblChecklist8_1.Y+ lblChecklist8_1.Height+5
+                              Y: =lblChecklist8_1.Y+ lblChecklist8_1.Height+1
+                        - chbAllYes:
+                            Control: CheckBox@0.0.30
+                            Properties:
+                              Height: =30
+                              Label: ="Yes All"
+                              OnCheck: =Set(selectYesAll,true)
+                              OnUncheck: =Set(selectYesAll,false)
+                              Width: =100
+                              X: =lblApprove.X
+                              Y: =lblApprove.Y+lblApprove.Height
+                        - chbAllYes_1:
+                            Control: CheckBox@0.0.30
+                            Properties:
+                              Height: =30
+                              Label: ="Yes All"
+                              OnCheck: =Set(selectYesAll2,true)
+                              OnUncheck: =Set(selectYesAll2,false)
+                              Width: =100
+                              X: =lblYes_No.X
+                              Y: =lblApprove.Y+lblApprove.Height
+                        - lblChecklist8_3:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 18, 107, 1)
+                              Font: ="Helvetica Neue"
+                              FontWeight: =FontWeight.Semibold
+                              Height: =If(rgCheck6.Selected.Value="Yes",35,0)
+                              PaddingLeft: =lblChecklist1.PaddingLeft
+                              Size: =lblChecklist1.Size
+                              Text: ="Power BI Developer Name"
+                              Visible: =If(rgCheck6.Selected.Value="Yes",true,false)
+                              Width: =lblChecklist1.Width
+                              X: =lblChecklist2.X
+                              Y: =lblChecklist9.Y+lblChecklist1.Height
+                        - txtPowerBIDeveloper:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              BorderColor: =RGBA(193, 193, 193, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(102, 102, 102, 1)
+                              Default: =varSelectedItem.AdditionalJustification
+                              DisplayMode: =If(varRequestType="New",DisplayMode.Edit,lblJIRATicketNumber.DisplayMode)
+                              FocusedBorderColor: =Color.Transparent
+                              FocusedBorderThickness: =2
+                              Font: ="Helvetica Neue"
+                              Height: =If(rgCheck6.Selected.Value="Yes",35,0)
+                              HintText: ="Enter Power BI developer name"
+                              HoverBorderColor: =Self.BorderColor
+                              HoverColor: =Self.Color
+                              HoverFill: =Self.Fill
+                              Mode: =TextMode.MultiLine
+                              PaddingLeft: =5
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =lblJIRATicketNumber.Size
+                              Visible: =If(rgCheck6.Selected.Value="Yes",true,false)
+                              Width: =Parent.Width-Self.X-10
+                              X: =lblChecklist8_1.X
+                              Y: =lblChecklist8_3.Y+ lblChecklist8_3.Height+5
                   - Label2:
                       Control: Label@2.5.1
                       Properties:
