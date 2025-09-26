@@ -1,0 +1,15 @@
+
+Concurrent(
+//Set(VarUserMail,Office365Users.MyProfile().Mail),
+Set(VarChevronColor,RGBA(195, 52, 41, 1)),
+Set(Varfontsize,10),
+Set(VarfontColor,RGBA(0, 0, 0, 1)),
+Set(VarfieldColor,RGBA(0, 0, 0, 1)),
+Set(VarBackgroundColor,RGBA(246, 246, 246, 1)),
+//Set(VarActiveScreen,"Home"),
+Set(VarPageNumber,1),
+Set(VarStartnumber,1),
+Set(VarPaginiationCount,7));
+// The edit item value is collected from the URL  
+
+ClearCollect(collFTOApprovers,AddColumns(FTOApprovers,ApproverEmail,Approver.Email,ApproverDisplayName,Approver.DisplayName));
