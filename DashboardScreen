@@ -121,7 +121,7 @@ Screens:
                   LayoutMinWidth: =40
                   PaddingLeft: =0
                   Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
-                  Text: ="TestOwner"
+                  Text: ="Requested Date"
                   Width: =50
                   X: =lbl_RDS_RequestID.X+lbl_RDS_RequestID.Width-1
             - lbl_RDS_Part Owner:
@@ -491,11 +491,6 @@ Screens:
             Width: =150
             X: =App.Width-Self.Width-20
             Y: =Rectangle1.Y+Rectangle1.Height+10
-      - TextInputCanvas1:
-          Control: TextInput@0.0.54
-          Properties:
-            X: =40
-            Y: =40
       - txtSearch:
           Control: Classic/TextInput@2.3.2
           Properties:
