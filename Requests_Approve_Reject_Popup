@@ -1,6 +1,6 @@
 Set(VarLoading,true);
 Patch(Requests,LookUp(Requests,ID=varSelectedItemID),{RequestStatus:{Value:If(varConfirmation="Approve","Approved","Rejected")},
-            ReportOwner:txtReportOwner.Text,ReportView:txtReportView.Text, LineName:txtLineName.Text,LineNode:txtLineNode.Text,LineAlias:txtLineAlias.Text,LineHierarchy:txtLineHierarchy.Text,Level:txtLevel.Text,OrgNode:txtLineNode.Text,OrgHierarchey_Level1:txtOrgHierarchy_Level1.Text,PartnerNode:txtPartnerNode.Text,PartnerHierarchey_Level1:txtPartnerHierarchy_Level1
+            LineName:txtLineName.Text,LineNode:txtLineNode.Text,LineAlias:txtLineAlias.Text,LineHierarchy:txtLineHierarchy.Text,Level:txtLevel.Text,OrgNode:txtLineNode.Text,OrgHierarchey_Level1:txtOrgHierarchy_Level1.Text,PartnerNode:txtPartnerNode.Text,PartnerHierarchey_Level1:txtPartnerHierarchy_Level1
 .Text,Item:txtItem.Text,Sort:txtSort.Text,Indent:txtIndent.Text,Format:txtFormat.Text,DecimalPrecision:txtDecimalPrecision.Text,NegativeLine:false,SortCheck:txtSortCheck.Text
 
 });
