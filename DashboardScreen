@@ -114,15 +114,15 @@ Screens:
                 Properties:
                   BorderColor: =RGBA(89, 0, 0, 1)
                   Color: =RGBA(255, 255, 255, 1)
+                  FillPortions: =1
                   Font: ="Helvetica Neue"
                   FontWeight: =FontWeight.Semibold
                   Height: =Parent.Height
-                  LayoutMinWidth: =110
+                  LayoutMinWidth: =40
                   PaddingLeft: =0
                   Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-1,Varfontsize+1)
-                  Text: ="PPN Owner"
-                  Visible: =If(DashboardScreen.Size=1,false,true)
-                  Width: =0
+                  Text: ="TestOwner"
+                  Width: =50
                   X: =lbl_RDS_RequestID.X+lbl_RDS_RequestID.Width-1
             - lbl_RDS_Part Owner:
                 Control: Label@2.5.1
@@ -178,9 +178,9 @@ Screens:
             Fill: =VarBackgroundColor
             Height: |-
               =/*App.Height-RequestorDashboardScreen_HeaderComponent.ComponentHeight-img_RDS_HeaderLogo.Height-60- cont_RDS_HeaderSection.Height-RequestorDashboardScreen_FooterComponent.Height-10-gall_RDS_Pagination.Height -  If(RequestorDashboardScreen.Size=1 || RequestorDashboardScreen.Size=2 || RequestorDashboardScreen.Size=3,txt_RequestorDashboardScreen_SearchItemTitle.Height + txt_RequestorDashboardScreen_SearchItemTitle.Height + 10 ,txt_RequestorDashboardScreen_SearchItemTitle.Height+5)*/
-              Self.TemplateHeight * VarPaginiationCount
+              Self.TemplateHeight * CountRows(Self.AllItems)
             Items: |-
-              =WorkspaceRequests
+              =Search(AddColumns(WorkspaceRequests,ApproverName,FTO_Approver.DisplayName,Requestor,Workspace_Requester.DisplayName,ReqStatus,Status.Value), txtSearch.Text,ApproverName,Requestor,ReqStatus,JIRA_TicketID,Workspace_Name,Title)
               /*With(
                   {
                       records:If(
@@ -268,10 +268,10 @@ Screens:
                 Properties:
                   BorderColor: =RGBA(89, 0, 0, 1)
                   Font: ="Helvetica Neue"
-                  Height: =0
+                  Height: =lbl_RDS_Gall_Requestor.Height
                   PaddingLeft: =0
                   Size: =If(DashboardScreen.Size=1 || DashboardScreen.Size=2,Varfontsize-2,Varfontsize)
-                  Text: =ThisItem.User_LOB_Function
+                  Text: =ThisItem.Requested_Date
                   Visible: =lbl_RDS_Gall_RequestID.Visible
                   Width: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.Width,'lbl_RDS_PPN Owner'.Width)
                   X: =If(App.ActiveScreen.Size=1 ||App.ActiveScreen.Size=2,lbl_RDS_Gall_RequestID.X,lbl_RDS_Gall_Requestor.X+lbl_RDS_Gall_Requestor.Width)
@@ -395,7 +395,7 @@ Screens:
                   BorderColor: =RGBA(89, 0, 0, 1)
                   BorderStyle: =BorderStyle.None
                   Fill: =RGBA(0, 0, 0, 0)
-                  Height: =Parent.TemplateHeight
+                  Height: =0
                   HoverFill: |-
                     =//RGBA(166, 166, 166, 0.15)
                     RGBA(161, 200, 194, 0.3)
@@ -491,3 +491,21 @@ Screens:
             Width: =150
             X: =App.Width-Self.Width-20
             Y: =Rectangle1.Y+Rectangle1.Height+10
+      - TextInputCanvas1:
+          Control: TextInput@0.0.54
+          Properties:
+            X: =40
+            Y: =40
+      - txtSearch:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =
+            FocusedBorderThickness: =2
+            Font: =Font.'Open Sans'
+            HintText: |-
+              ="Search by Request ID, Ticket #, Workspace Name"
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            X: =ButtonCanvas1.X-Self.Width-10
+            Y: =ButtonCanvas1.Y
